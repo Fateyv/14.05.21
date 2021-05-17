@@ -1,6 +1,6 @@
 const operator = getOperator();
 const operands = getOperands('Enter operands separated by commas');
-let result = getCalculation(operator);
+let result = getCalculation(operator, operands);
 let expression = operands.join(operator);
 alert(`Your result : ${expression} = ${result}`);
 
@@ -28,7 +28,7 @@ function getOperands(message) {
         arr = prompt(message);
     } while (isOperandsValid(arr));
     arr = arr.split(",");
-    return arr.filter(Number).map(Number);
+    return arr.map(Number).filter(Number.isFinite);
 }
 
 function isOperandsValid(arr) {
@@ -38,7 +38,8 @@ function isOperandsValid(arr) {
     );
 }
 
-function getCalculation(operator) {
+function getCalculation(operator, operands) {
+    let calcResult = 0;
     calcResult = operands[0];
     for (let i = 1; i < operands.length; i++) {
         switch (operator) {
